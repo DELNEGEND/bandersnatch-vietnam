@@ -1,10 +1,10 @@
 # Bandersnatch Interactive Player (dựa trên html5 video player)
 Công cụ hỗ trợ xem tập phim Bandersnatch **có tương tác**
 
-[Ấn vào đây để mở player](https://mehotkhan.github.io/BandersnatchInteractive/)
+[Ấn vào đây để mở player](https://delnegend.github.io/bandersnatch-vietnam/index.html)
 
 ## Hướng dẫn sử dụng
-Tải file phim > mở trang web trên > kéo thả file phim vào và thưởng thức.
+Tải file phim > mở trang web [này](https://delnegend.github.io/bandersnatch-vietnam/index.html) > kéo thả file phim vào và thưởng thức.
 
 ## Screenshot
   ![Screenshot](screenshot.png)
