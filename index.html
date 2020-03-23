@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<!--
+	This is free and unencumbered software released into the public domain.
+
+	Anyone is free to copy, modify, publish, use, compile, sell, or
+	distribute this software, either in source code form or as a compiled
+	binary, for any purpose, commercial or non-commercial, and by any
+	means.
+
+	In jurisdictions that recognize copyright laws, the author or authors
+	of this software dedicate any and all copyright interest in the
+	software to the public domain. We make this dedication for the benefit
+	of the public at large and to the detriment of our heirs and
+	successors. We intend this dedication to be an overt act of
+	relinquishment in perpetuity of all present and future rights to this
+	software under copyright law.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+	IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+	OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+	ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+	OTHER DEALINGS IN THE SOFTWARE.
+
+	For more information, please refer to <http://unlicense.org>
+-->
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Bandersnatch Interactive Player</title>
+  <meta name="description" content="Stand-alone open-source interactive HTML player for Black Mirror - Bandersnatch" />
+  <meta name="keywords" content="Bandersnatch,Bandersnatch Interactive Player,Interactive Player,watch," />
+  <script src="assets/bandersnatch.js"></script>
+  <script src="assets/SegmentMap.js"></script>
+  <script src="assets/scripts.js"></script>
+  <script>
+    // keep localizable strings out of scripts.js
+    function askReset() {
+      if (confirm('Are you sure you want to reset all choices, breadcrumbs, and watched scenes?'))
+        reset();
+    }
+  </script>
+  <link rel="stylesheet" type="text/css" href="assets/styles.css">
+</head>
+
+<body>
+  <div>
+    <div id="c">
+      <section role="banner">
+        <div id="file-selector">
+          <div class="file-area">
+            <div class="contact">
+              <p style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                Tác giả:
+                <a href="https://github.com/joric/bandersnatch/">Original version</a> - <a
+                  href="https://github.com/joric/">joric</a> |
+                Web page, subtitles - <a href="https://github.com/mehotkhan">Mehotkhan</a> (<a
+                  href="bitcoin:1CxaCJbh4VMNicnpktsBVfnVU5xq4QYyHW">donate</a>) |
+                Chỉnh sửa, cải tiến và nhiều thứ khác - <a href="https://github.com/CyberShadow">CyberShadow</a> | Việt
+                Hoá - <a href="https://delnegend.xyz" target="_blank">Delnegend</a>
+                <br>
+                Trình phát này ghi nhớ các lựa chọn của bạn. <a href="javascript:askReset()">Ấn vào đây
+                  để reset và xem lại từ đầu.</a>
+              </p>
+            </div>
+            <input id="fileinput" type="file">
+            <div class="file-dummy"
+              style="font-size: 2.2em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding: 1em;">
+              <h2>Bandersnatch Interactive Player</h2>
+              <span class="default">Chọn file video Bandersnatch ( 5:12:14 ) </span>
+              <span class="success">Tuyệt! File video đã được chọn.</span>
+              <ul class="file-tips">
+                <li>Player này chỉ hoạt động trên trình duyệt nhân Chromium (Google Chrome, Cốc Cốc,
+                  Brave, Opera,...).</li>
+                <li>Tải file video Bandersnatch (hơn 5 tiếng)</li>
+                <li>Kéo thả vào đây (hoặc ấn vào cửa sổ trình duyệt và select file)</li>
+                <li>Đã có sẵn tiếng Việt (được chọn sẵn mặc định) và tiếng Anh</li>
+                <li>Để thay đổi phụ đề
+                  <ol>
+                    <li>Chuột phải vào video.</li>
+                    <li>Chọn "Show controls"</li>
+                    <li>Ấn vào <span class="menu-item"></span> ở góc dưới bên phải.</li>
+                    <li>Chọn phụ đề</li>
+                    <li>Ấn controls bằng cách làm lại bước 1 và 2</li>
+                  </ol>
+                </li>
+                <li>Cảnh báo: tuyệt đối không sử dụng nút "full screen" trên thanh controls nếu bạn đã
+                  bật "Show controls" ở bước 2 ở trên nếu không các lựa chọn khi xem phim sẽ không
+                  hiện. Khuyến cáo sử dụng phím tắt trên bàn phím.</li>
+              </ul>
+
+              <ul class="controls-tips">
+                <h6>Các phím tắt</h6>
+                <li><kbd>F</kbd> - Toàn màn hình</li>
+                <li><kbd>R</kbd> - Restart video</li>
+                <li><kbd>→</kbd> / <kbd>←</kbd> - Tua tới phân đoạn trước/sau (hoặc phần tương tác)</li>
+                <li><kbd>↑</kbd> / <kbd>↓</kbd> - Tăng/giảm tốc độ phát lại</li>
+                <li><kbd>Phím cách</kbd> - Phát/tạm dừng</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div id="wrapper-video">
+          <video id="video" preload="metadata">
+            <source id="video-source" src="">
+            <track label="Viet" kind="subtitles" srclang="en" src="subtitle/Vietnamese.vtt" default>
+            <track label="English" kind="subtitles" srclang="en" src="subtitle/English.vtt">
+          </video>
+          <div class="controls">
+            <div id="choiceCaption"></div>
+            <div id="progress"></div>
+            <div class="buttons">
+              <ul id="choices"></ul>
+              <ul id="interactionZones"></ul>
+              <ul id="nextSegments"></ul>
+              <ul id="nextSegment"></ul>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </section>
+
+
+  </div>
+</body>
+
+</html>
